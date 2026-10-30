@@ -1,0 +1,3 @@
+patch level 9: 262144 sites; interior finite clusters by size (size: number):
+{1: 8641, 2: 466, 4: 2045, 10: 84, 16: 473, 42: 12, 63: 106, 165: 1, 245: 23, 941: 5, 3583: 1}
+sizes outside the two chains A, B: []

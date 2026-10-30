@@ -1,0 +1,17 @@
+all windows of the tiling (radius 7, mod G): 3542
+seeds: 103 singleton windows (chain A), 22 pair windows (chain B)
+inflation cells (closure under inflation, mod G): 3223   [8s]
+lower edge: 896 pieces, all symmetric and positive definite (exact), smallest pivot 1e-06
+upper edge: 1028 pieces, all symmetric and positive definite (exact), smallest pivot 0.0102
+  cell 0/3223  [10s]
+  cell 500/3223  [13s]
+  cell 1000/3223  [17s]
+  cell 1500/3223  [21s]
+  cell 2000/3223  [26s]
+  cell 2500/3223  [30s]
+  cell 3000/3223  [33s]
+lower edge: 18473 rows checked; min row margin rho_L = 85844911/1073741824 = 0.079949 > 0
+upper edge: 3223 rows checked; min row margin rho_U = 696063391/8388608 = 82.977222 > 0 (units of 20*M)
+=> Q1 = 9/8 - A + 2 sum_v (A u_v)(A u_v)^T  >=  0.0799 * I
+=> M = U^T p5(A) U  >=  4.1489 * I     (u_v = indicator of the triangle of v, not normalised)
+VERIFIED in 35s

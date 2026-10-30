@@ -1,0 +1,17 @@
+chain A k=1: |C_k|=4, |C_(k-1)|=1: H1, H2 hold
+chain A k=2: |C_k|=16, |C_(k-1)|=4: H1, H2 hold
+chain A k=3: |C_k|=63, |C_(k-1)|=16: H1, H2 hold
+chain A k=4: |C_k|=245, |C_(k-1)|=63: H1, H2 hold
+chain A k=5: |C_k|=941, |C_(k-1)|=245: H1, H2 hold
+chain A k=6: |C_k|=3583, |C_(k-1)|=941: H1, H2 hold
+chain A k=7: |C_k|=13574, |C_(k-1)|=3583: H1, H2 hold
+chain A k=8: |C_k|=51293, |C_(k-1)|=13574: H1, H2 hold
+chain A k=9: |C_k|=193605, |C_(k-1)|=51293: H1, H2 hold
+chain B k=1: |C_k|=10, |C_(k-1)|=2: H1, H2 hold
+chain B k=2: |C_k|=42, |C_(k-1)|=10: H1, H2 hold
+chain B k=3: |C_k|=165, |C_(k-1)|=42: H1, H2 hold
+chain B k=4: |C_k|=632, |C_(k-1)|=165: H1, H2 hold
+chain B k=5: |C_k|=2396, |C_(k-1)|=632: H1, H2 hold
+chain B k=6: |C_k|=9049, |C_(k-1)|=2396: H1, H2 hold
+chain B k=7: |C_k|=34135, |C_(k-1)|=9049: H1, H2 hold
+chain B k=8: |C_k|=128737, |C_(k-1)|=34135: H1, H2 hold

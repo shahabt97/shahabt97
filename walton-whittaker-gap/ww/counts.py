@@ -101,9 +101,9 @@ def main():
     seqA = {tuple(sizes(trans, {type_index[v.tobytes()]: 1}, 60)) for v in A_seeds}
     assert len(seqA) == 1, "all singleton seeds give the same sizes"
     sA = list(seqA.pop())
-    kd = krylov_dimension(trans, {type_index[A_seeds[0].tobytes()]: 1})
-    print(f"exact Krylov dimension of the substitution started from a chain-A seed: {kd}  "
-          f"(=> |C_k| obeys a linear recurrence of order <= {kd} for ALL k; the minimal one has order 6)")
+    kdA = {krylov_dimension(trans, {type_index[v.tobytes()]: 1}, maxdim=200) for v in A_seeds}
+    print(f"exact Krylov dimension of the substitution started from a chain-A seed (all {len(A_seeds)} seeds): {sorted(kdA)}  "
+          f"(=> |C_k| obeys a linear recurrence of order <= {max(kdA)} for ALL k; the minimal one has order 6)")
     # chain B: a pair seed = two member windows that see each other (matched through their radius-6 windows)
     F6 = Frame(6)
 
@@ -120,14 +120,17 @@ def main():
     for v in B:
         d = F.to_dict(v)
         info.append((v, sub6(d, (0, 0)), sub6(d, same_species_nbrs(d, (0, 0))[0])))
-    seqB = set()
+    seqB, kdB = set(), set()
     for i, (v, c6, p6) in enumerate(info):
         for j, (w, c6j, p6j) in enumerate(info):
             if c6j == p6 and p6j == c6:
                 start = collections.Counter([type_index[v.tobytes()], type_index[w.tobytes()]])
                 seqB.add(tuple(sizes(trans, start, 60)))
+                kdB.add(krylov_dimension(trans, start, maxdim=200))
     assert len(seqB) == 1
     sB = list(seqB.pop())
+    print(f"exact Krylov dimension of the substitution started from a chain-B seed (all matched pairs): {sorted(kdB)}")
+    assert max(kdA | kdB) + 6 <= len(sA), "too few terms to conclude that the recurrence holds for all k"
     for name, s in (('A', sA), ('B', sB)):
         assert all(s[k + 6] == sum(c * s[k + 5 - i] for i, c in enumerate(REC)) for k in range(len(s) - 6))
         print(f"chain {name}: |C_k| = {s[:10]} ...   (satisfies the recurrence with characteristic polynomial {CHARPOLY})")

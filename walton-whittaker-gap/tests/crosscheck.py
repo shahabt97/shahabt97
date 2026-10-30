@@ -6,7 +6,10 @@ For chain A (levels 1..LA) and chain B (levels 1..LB) it
   * assembles the forms Q1 and 20*M globally and checks their smallest eigenvalues against the certified margins,
   * assembles the certificate pieces globally (exact Fractions) and recomputes the Gershgorin margin of the residual
     R = F - sum_c iota_c^T G_c iota_c on the whole cluster: it must reproduce (be >=) the margins certified on the cells.
-Run:  python -m tests.crosscheck [LA LB]      (from the package root)
+  * checks the structural hypotheses H1, H2 of FULL_PROOF.md on the actual clusters: the triangle vertices of C_k are exactly
+    the triangles of the sites of C_{k-1}, and every other vertex is the flipped fourth child of a lattice neighbour of a site of C_{k-1}.
+Run:  python -m tests.crosscheck [LA LB]              (from the package root)
+      python -m tests.crosscheck LA LB structure      (only the structural checks, much faster, deeper levels)
 """
 import collections
 import os
@@ -16,7 +19,7 @@ from fractions import Fraction as Fr
 
 import numpy as np
 
-from ww.core import D, enc, rotk, Frame
+from ww.core import D, child_pos, enc, rotk, Frame
 from ww.cells import C20
 from ww.verify import Certificate, DATA
 from tests.cluster_numpy import chain_levels
@@ -35,6 +38,16 @@ def cluster_data(prev, cur):
     plab = {(int(x), int(y)): (int(rr), int(tt)) for x, y, rr, tt in zip(pa, pb, pr, pt)}
     ppos = {i: (int(x), int(y)) for i, (x, y) in enumerate(zip(pa, pb))}
     n_old = int(pmask.sum())
+    # structural hypotheses H1, H2 (FULL_PROOF.md, section 1.3)
+    old = {(int(x), int(y)) for x, y, mk in zip(pa, pb, pmask) if mk}
+    for p in cs:
+        w = ppos[parent[p]]
+        if child[p] != 3:
+            assert w in old, "H1 violated: triangle vertex whose parent is not in C_(k-1)"
+        else:
+            assert any((w[0] + d[0], w[1] + d[1]) in old for d in D), "H2 violated: extra whose parent is not adjacent to C_(k-1)"
+    for v in old:
+        assert all(child_pos(v, plab[v][0], j) in idx for j in range(3)), "H1 violated: triangle of a site of C_(k-1) not in C_k"
     adj = [[idx[(p[0] + dl[0], p[1] + dl[1])] for dl in D if (p[0] + dl[0], p[1] + dl[1]) in idx] for p in cs]
     tri = collections.defaultdict(list)
     for p in cs:
@@ -151,6 +164,13 @@ def margin_U(cert, cs, adj, tri, plab, ppos, M20, tids):
 def main():
     LA = int(sys.argv[1]) if len(sys.argv) > 1 else 6
     LB = int(sys.argv[2]) if len(sys.argv) > 2 else 5
+    if len(sys.argv) > 3 and sys.argv[3] == 'structure':
+        for chain, Lmax in (('A', LA), ('B', LB)):
+            for k, prev, cur in chain_levels(chain, Lmax):
+                cs, adj, tri, parent, child, plab, ppos, n_old = cluster_data(prev, cur)
+                assert len(tri) == n_old
+                print(f"chain {chain} k={k}: |C_k|={len(cs)}, |C_(k-1)|={n_old}: H1, H2 hold", flush=True)
+        return
     L = Certificate(os.path.join(DATA, 'cert_L.json.gz'))
     U = Certificate(os.path.join(DATA, 'cert_U.json.gz'))
     lam1, lam2 = 9 / 8, 23 / 20

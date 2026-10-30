@@ -46,6 +46,7 @@ class Cell:
         for s in range(rad):
             nf = []
             for y in fr:
+                assert euclid(y) <= ZONE - 1, "graph ball leaves the determined zone"
                 for g in self.nbrs[y]:
                     if g not in dist:
                         dist[g] = s + 1
@@ -56,6 +57,7 @@ class Cell:
     def B(self, x):
         """B_x[v] = (A u_v)_x = number of neighbours of x inside the triangle of the coarse site v"""
         if x not in self._B:
+            assert euclid(x) <= ZONE - 1, "site too close to the edge of the determined zone"
             out = {}
             for g in self.nbrs[x]:
                 v = self.fine[g]
@@ -93,12 +95,14 @@ def coarse_data(cell):
     return tri, site2tri, H
 
 
-def hball(H, x, rad):
+def hball(H, x, rad, inside=None):
+    """ball of radius rad in the triangle-adjacency graph H; inside(y) asserts that y is far enough from the zone edge"""
     dist = {x: 0}
     fr = [x]
     for s in range(rad):
         nf = []
         for y in fr:
+            assert inside is None or inside(y), "H-ball leaves the determined zone"
             for g in H[y]:
                 if g not in dist:
                     dist[g] = s + 1
@@ -113,6 +117,7 @@ def m_row(cell, tri, site2tri, po):
     for _ in range(5):
         nxt = {}
         for f, v in a[-1].items():
+            assert euclid(f) <= ZONE - 1, "walk leaves the determined zone"
             for g in cell.nbrs[f]:
                 nxt[g] = nxt.get(g, 0) + v
         a.append(nxt)

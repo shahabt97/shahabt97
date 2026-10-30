@@ -1,0 +1,8 @@
+exact Krylov dimension of the substitution started from a chain-A seed (all 103 seeds): [12]  (=> |C_k| obeys a linear recurrence of order <= 12 for ALL k; the minimal one has order 6)
+exact Krylov dimension of the substitution started from a chain-B seed (all matched pairs): [13]
+chain A: |C_k| = [1, 4, 16, 63, 245, 941, 3583, 13574, 51293, 193605] ...   (satisfies the recurrence with characteristic polynomial x^6 - 8x^5 + 22x^4 - 25x^3 + 7x^2 + 5x - 2 = (x-1)(x^5 - 7x^4 + 15x^3 - 10x^2 - 3x + 2))
+chain B: |C_k| = [2, 10, 42, 165, 632, 2396, 9049, 34135, 128737, 485549] ...   (satisfies the recurrence with characteristic polynomial x^6 - 8x^5 + 22x^4 - 25x^3 + 7x^2 + 5x - 2 = (x-1)(x^5 - 7x^4 + 15x^3 - 10x^2 - 3x + 2))
+Perron root theta = 3.772538098857,  lim |C_(k-1)|/|C_k| = 1/theta = 0.265073532406,  1 - 1/theta = 0.734926467594
+finite-k labels 1 - |C_(k-1)|/|C_k|  (A): ['3/4', '3/4', '47/63', '26/35', '696/941', '2642/3583', '9991/13574']
+finite-k labels 1 - |C_(k-1)|/|C_k|  (B): ['4/5', '16/21', '41/55', '467/632', '441/599', '6653/9049', '25086/34135']
+quintic irreducible over Q: True

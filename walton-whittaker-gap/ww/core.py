@@ -136,12 +136,17 @@ class Frame:
 
 
 def inflate(d):
-    """d: dict coarse offset -> (r, t, m).  Returns dict fine position -> (r, t, j, parent offset)."""
+    """d: dict coarse offset -> (r, t, m).  Returns dict fine position -> (r, t, j, parent offset).
+    Asserts that no two children coincide (a collision would need two adjacent sites to claim the midpoint of their
+    common edge); applied to every window of the closure this proves, by induction on the level, that the tiling is
+    collision free: a collision at level K+1 would be seen inside the window of one of the two parents."""
     fine = {}
     for o, (r, t, m) in d.items():
         for j in range(4):
             lab = child_label(r, t, j)
-            fine[child_pos(o, r, j)] = (lab[0], lab[1], j, o)
+            f = child_pos(o, r, j)
+            assert f not in fine, "collision of two children"
+            fine[f] = (lab[0], lab[1], j, o)
     return fine
 
 

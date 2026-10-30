@@ -1,5 +1,8 @@
 # The window [9/8, 23/20] is a spectral gap of every cluster of the charged Walton–Whittaker tiling
 
+> **`FULL_PROOF.md` is the complete, self-contained version of this proof** (problem, formalization, all lemmas with proofs, the finite certificate scheme, the exact computation with verbatim code and outputs, gap labels, and an assessment of assumptions and risks). Where the two files differ, `FULL_PROOF.md` is authoritative; this file is a shorter summary.
+
+
 ## 0. Result
 
 Let λ₁ = 9/8 and λ₂ = 23/20. For **both chains and every k ≥ 1** the matrix A(C_k) has exactly m = |C_{k-1}|

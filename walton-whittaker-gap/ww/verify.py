@@ -14,15 +14,14 @@ import collections
 import gzip
 import json
 import os
-import sys
 import time
 from fractions import Fraction as Fr
 
 import numpy as np
 
-from .core import Frame, enc, hexd, rotk
+from .core import Frame, enc, euclid, hexd, rotk
 from .cells import Cell, q1_entry, coarse_data, hball, m_row
-from .closure import cells as build_cells
+from .closure import cells as build_cells, ZONE
 
 DATA = os.path.join(os.path.dirname(__file__), '..', 'data')
 
@@ -57,10 +56,13 @@ class Certificate:
             self.pieces[key] = dict(offs=tuple(tuple(o) for o in t['offs']), N=t['N'])
 
     def check_pieces(self):
-        """every G_tau positive definite (exact); returns the smallest pivot met"""
+        """every G_tau symmetric and positive definite (exact); returns the smallest pivot met"""
         S = Fr(1 << self.bits)
         minpiv = None
         for key, p in self.pieces.items():
+            n = len(p['N'])
+            assert len(p['offs']) == n and all(len(row) == n for row in p['N']), "piece shape"
+            assert all(p['N'][i][j] == p['N'][j][i] for i in range(n) for j in range(i)), "piece not symmetric"
             ok, mp = is_pd([[Fr(v) / S for v in row] for row in p['N']])
             assert ok, "piece not positive definite"
             minpiv = mp if minpiv is None or mp < minpiv else minpiv
@@ -115,11 +117,12 @@ def row_margin_U(cert, cell, Wrad=2):
     tri, site2tri, H = coarse_data(cell)
     z = (0, 0)
     cache = {}
+    inside = lambda po: all(euclid(f) <= ZONE - 1 for f in tri[po])
 
     def centre(c):
         if c not in cache:
             p, k = cert.piece(cell.d, c, -1)
-            ball_ = hball(H, c, Wrad)
+            ball_ = hball(H, c, Wrad, inside)
             coffs = {w: rotk((w[0] - c[0], w[1] - c[1]), k) for w in ball_}
             order = sorted(ball_, key=lambda w: coffs[w])
             assert tuple(coffs[w] for w in order) == p['offs'], "piece window mismatch"
@@ -128,7 +131,7 @@ def row_margin_U(cert, cell, Wrad=2):
 
     row = m_row(cell, tri, site2tri, z)
     acc = collections.defaultdict(Fr)
-    for c in hball(H, z, Wrad):
+    for c in hball(H, z, Wrad, inside):
         p, idx = centre(c)
         ix = idx[z]
         for w, iw in idx.items():
@@ -152,8 +155,8 @@ def main(argv=None):
     L = Certificate(os.path.join(args.data, 'cert_L.json.gz'))
     U = Certificate(os.path.join(args.data, 'cert_U.json.gz'))
     pL, pU = L.check_pieces(), U.check_pieces()
-    print(f"lower edge: {len(L.pieces)} pieces, all positive definite (exact), smallest pivot {float(pL):.3g}")
-    print(f"upper edge: {len(U.pieces)} pieces, all positive definite (exact), smallest pivot {float(pU):.3g}")
+    print(f"lower edge: {len(L.pieces)} pieces, all symmetric and positive definite (exact), smallest pivot {float(pL):.3g}")
+    print(f"upper edge: {len(U.pieces)} pieces, all symmetric and positive definite (exact), smallest pivot {float(pU):.3g}")
     rhoL = rhoU = None
     nrows = 0
     for n, v in enumerate(wins):

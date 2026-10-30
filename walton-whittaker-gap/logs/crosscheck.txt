@@ -1,0 +1,12 @@
+chain A k=1: |C_k|=4, |C_(k-1)|=1; #eig>=9/8: 1; #eig in [9/8,23/20]: 0; max bulk 0.3111, min band 2.1701; lmin(Q1)=0.8104 (>= 0.0799); lmin(20M)=20411.00 (>= 82.98); global residual margins 0.0803, 83.252  OK  [0s]
+chain A k=2: |C_k|=16, |C_(k-1)|=4; #eig>=9/8: 4; #eig in [9/8,23/20]: 0; max bulk 1.0000, min band 1.6385; lmin(Q1)=0.0969 (>= 0.0799); lmin(20M)=4492.70 (>= 82.98); global residual margins 0.0800, 83.222  OK  [0s]
+chain A k=3: |C_k|=63, |C_(k-1)|=16; #eig>=9/8: 16; #eig in [9/8,23/20]: 0; max bulk 1.0000, min band 1.6097; lmin(Q1)=0.0874 (>= 0.0799); lmin(20M)=3985.17 (>= 82.98); global residual margins 0.0799, 83.182  OK  [0s]
+chain A k=4: |C_k|=245, |C_(k-1)|=63; #eig>=9/8: 63; #eig in [9/8,23/20]: 0; max bulk 1.0000, min band 1.4427; lmin(Q1)=0.0871 (>= 0.0799); lmin(20M)=810.45 (>= 82.98); global residual margins 0.0799, 83.162  OK  [0s]
+chain A k=5: |C_k|=941, |C_(k-1)|=245; #eig>=9/8: 245; #eig in [9/8,23/20]: 0; max bulk 1.0070, min band 1.3459; lmin(Q1)=0.0803 (>= 0.0799); lmin(20M)=254.58 (>= 82.98); global residual margins 0.0799, 83.098  OK  [1s]
+chain A k=6: |C_k|=3583, |C_(k-1)|=941; #eig>=9/8: 941; #eig in [9/8,23/20]: 0; max bulk 1.0070, min band 1.2884; lmin(Q1)=0.0803 (>= 0.0799); lmin(20M)=125.34 (>= 82.98); global residual margins 0.0799, 83.078  OK  [17s]
+chain B k=1: |C_k|=10, |C_(k-1)|=2; #eig>=9/8: 2; #eig in [9/8,23/20]: 0; max bulk 0.8575, min band 2.1656; lmin(Q1)=0.1794 (>= 0.0799); lmin(20M)=13149.80 (>= 82.98); global residual margins 0.0803, 83.242  OK  [0s]
+chain B k=2: |C_k|=42, |C_(k-1)|=10; #eig>=9/8: 10; #eig in [9/8,23/20]: 0; max bulk 1.0000, min band 1.5197; lmin(Q1)=0.0964 (>= 0.0799); lmin(20M)=1040.05 (>= 82.98); global residual margins 0.0803, 83.172  OK  [0s]
+chain B k=3: |C_k|=165, |C_(k-1)|=42; #eig>=9/8: 42; #eig in [9/8,23/20]: 0; max bulk 1.0070, min band 1.3510; lmin(Q1)=0.0803 (>= 0.0799); lmin(20M)=259.23 (>= 82.98); global residual margins 0.0802, 83.116  OK  [0s]
+chain B k=4: |C_k|=632, |C_(k-1)|=165; #eig>=9/8: 165; #eig in [9/8,23/20]: 0; max bulk 1.0070, min band 1.2884; lmin(Q1)=0.0803 (>= 0.0799); lmin(20M)=125.35 (>= 82.98); global residual margins 0.0799, 83.078  OK  [0s]
+chain B k=5: |C_k|=2396, |C_(k-1)|=632; #eig>=9/8: 632; #eig in [9/8,23/20]: 0; max bulk 1.0070, min band 1.2549; lmin(Q1)=0.0803 (>= 0.0799); lmin(20M)=102.90 (>= 82.98); global residual margins 0.0799, 82.977  OK  [5s]
+cross-checks passed

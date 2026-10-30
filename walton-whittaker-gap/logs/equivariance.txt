@@ -1,0 +1,1 @@
+windows tested: 200 x 11 group elements x 4 children; equivariance violations: 0

@@ -1,7 +1,7 @@
 """Finite set of inflation cells.
 
 1. all-sites closure: every radius-R window of the tiling, obtained from the window of the origin by iterating
-   the children map (a window of a child is a function of the window of its parent, see core.geometric_check);
+   the children map (a window of a child is a function of the window of its parent, Lemma 5 of FULL_PROOF.md);
 2. seeds: windows centred at the member of a singleton cluster (chain A) or of a two-site cluster (chain B);
 3. member closure: windows of the sites of C_k that are vertices of the triangle of a site z of C_{k-1} or flipped fourth
    children of neighbours of z, as a function of the window of z.  The least set containing the seeds and closed under

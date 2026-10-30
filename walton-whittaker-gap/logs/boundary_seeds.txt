@@ -1,0 +1,4 @@
+singleton seed windows adjacent to a hole: 61
+    9 window classes: |C_0..C_7| = [1, 4, 16, 62, 236, 889, 3336, 12515]
+   36 window classes: |C_0..C_7| = [1, 4, 15, 56, 210, 789, 2966, 11152]
+   16 window classes: |C_0..C_7| = [1, 4, 15, 55, 201, 737, 2719, 10093]

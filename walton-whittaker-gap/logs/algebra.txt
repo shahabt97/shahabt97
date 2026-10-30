@@ -1,0 +1,15 @@
+x^6 - 8x^5 + 22x^4 - 25x^3 + 7x^2 + 5x - 2 = (x - 1)(x^5 - 7x^4 + 15x^3 - 10x^2 - 3x + 2): verified
+f mod 3 = [2, 0, 2, 0, 2, 1] (ascending coefficients)
+f mod 3 has no monic factor of degree 1 or 2 (all 3 + 9 candidates tested): f is irreducible over F_3, hence over Q
+Sturm: f has exactly 3 real roots
+f at -1/2, -2/5, 39/100, 2/5, 3, 4: ['-43/32', '1408/3125', '458665499/10000000000', '-28/3125', '-16', '22']
+non-real roots: |z|^2 = 2/(theta |r1| r2) < 2/(3 * 2/5 * 39/100) = 500/117 = 4.2735 < 9, so |z| < 3 < theta
+theta        = 3.7725380988570505404160270370041892583877
+1/theta      = 0.2650735324059326665550111967750136168646
+1 - 1/theta  = 0.7349264675940673334449888032249863831354
+y = 1/theta is a root of (1)y^0 + (-7)y^1 + (15)y^2 + (-10)y^3 + (-3)y^4 + (2)y^5 = 0
+l = 1 - 1/theta is a root of (-2)l^0 + (9)l^1 + (-13)l^2 + (2)l^3 + (7)l^4 + (-2)l^5 = 0
+chain A: the recurrence started from s_0..s_5 reproduces the brute-force sizes s_6..s_9
+   ratios s_(k-1)/s_k: ['0.25000', '0.25000', '0.25397', '0.25714', '0.26036', '0.26263', '0.26396', '0.26464', '0.26494']
+chain B: the recurrence started from s_0..s_5 reproduces the brute-force sizes s_6..s_8
+   ratios s_(k-1)/s_k: ['0.20000', '0.23810', '0.25455', '0.26108', '0.26377', '0.26478', '0.26509', '0.26515']
